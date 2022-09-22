@@ -1,0 +1,49 @@
+Wed,16-Feb-2022 07:37:33AM   Measurement started (Software version: 3.3.0.3).
+Wed,16-Feb-2022 07:37:33AM   Move Cup L4 to Position 66.521
+Wed,16-Feb-2022 07:37:33AM   Move Cup L3 to Position 55.875
+Wed,16-Feb-2022 07:37:33AM   Move Cup L2 to Position 46.001
+Wed,16-Feb-2022 07:37:33AM   Move Cup L1 to Position 36.618
+Wed,16-Feb-2022 07:37:33AM   Move Cup H1 to Position  5.601
+Wed,16-Feb-2022 07:37:33AM   Move Cup H2 to Position 21.097
+Wed,16-Feb-2022 07:37:33AM   Move Cup H3 to Position 52.816
+Wed,16-Feb-2022 07:37:33AM   Move Cup H4 to Position 74.420
+Wed,16-Feb-2022 07:37:37AM   Waiting for Parameter Ramps...
+Wed,16-Feb-2022 07:37:41AM   Low Cup Motor Position started
+Wed,16-Feb-2022 07:37:41AM   High Cup Motor Position started
+Wed,16-Feb-2022 07:37:41AM   Low Cup Motor Position is ok
+Wed,16-Feb-2022 07:37:41AM   High Cup Motor Position is ok
+Wed,16-Feb-2022 07:37:43AM   Parameter Ramps done.
+
+Reading cup configuration: Name: B 10 IC5 11 IC1.ccf,Mass Set: FF.
+
+Wed,16-Feb-2022 07:37:43AM   Current Experiment is EXP_MEASURE.
+Wed,16-Feb-2022 07:37:43AM   Current Block is 1.
+
+**************************************************************************
+Current Settings at Start of Block 1:
+
+Extraction[V]:         -1833.9
+Focus[V]:              -579.4
+Source Quad1[V]:       248.7
+Rot-Quad1[V]:            8.4
+Foc-Quad1[V]:          -19.5
+Rot-Quad2[V]:           -0.1
+Source Offset[V]:        0.0
+Matsuda Plate[V]:       -1.0
+Cool Gas[l/min]:        16.6
+Aux Gas[l/min]:          0.9
+Sample Gas[l/min]:       1.0
+Add Gas[l/min]:          0.0
+Org Gas[l/min]:          0.0
+Operation Power[W]:    1319.2
+X-Pos[mm]:               0.7
+Y-Pos[mm]:              -3.3
+Z-Pos[mm]:              -3.4
+Ampl.-Temp[°C]:        46.93
+Fore Vacuum[mbar]:     9.2741e-004
+High Vacuum[mbar]:     1.6599e-007
+IonGetter-Press[mbar]: 1.7768e-008
+
+**************************************************************************
+Wed,16-Feb-2022 07:38:54AM   Exec PCL: skimmer_valve_open.pex()
+Wed,16-Feb-2022 07:38:55AM   CHeaterControl: Send Message TM_MEASURE_DONE.
