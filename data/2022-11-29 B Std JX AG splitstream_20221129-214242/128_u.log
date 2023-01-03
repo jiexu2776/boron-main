@@ -1,0 +1,47 @@
+Wed,30-Nov-2022 12:35:53AM   Measurement started (Software version: 3.3.0.3).
+Wed,30-Nov-2022 12:35:53AM   Move Cup L4 to Position 70.000
+Wed,30-Nov-2022 12:35:53AM   Move Cup L3 to Position 60.000
+Wed,30-Nov-2022 12:35:53AM   Move Cup L2 to Position 50.300
+Wed,30-Nov-2022 12:35:53AM   Move Cup L1 to Position 36.618
+Wed,30-Nov-2022 12:35:53AM   Move Cup H1 to Position  5.601
+Wed,30-Nov-2022 12:35:53AM   Move Cup H2 to Position 21.097
+Wed,30-Nov-2022 12:35:53AM   Move Cup H3 to Position 32.140
+Wed,30-Nov-2022 12:35:53AM   Move Cup H4 to Position 69.001
+Wed,30-Nov-2022 12:35:57AM   Low Cup Motor Position started
+Wed,30-Nov-2022 12:35:57AM   High Cup Motor Position started
+Wed,30-Nov-2022 12:35:57AM   Low Cup Motor Position is ok
+Wed,30-Nov-2022 12:35:57AM   High Cup Motor Position is ok
+
+Reading cup configuration: Name: B 10 IC5 11 IC1.ccf,Mass Set: FF.
+
+Wed,30-Nov-2022 12:35:57AM   Current Experiment is EXP_MEASURE.
+Wed,30-Nov-2022 12:35:57AM   Current Block is 1.
+
+**************************************************************************
+Current Settings at Start of Block 1:
+
+Extraction[V]:         -2000.0
+Focus[V]:              -607.7
+Source Quad1[V]:       248.7
+Rot-Quad1[V]:           11.4
+Foc-Quad1[V]:          -19.5
+Rot-Quad2[V]:           -0.0
+Source Offset[V]:        4.0
+Matsuda Plate[V]:       -1.0
+Cool Gas[l/min]:        16.4
+Aux Gas[l/min]:          0.8
+Sample Gas[l/min]:       0.7
+Add Gas[l/min]:          0.9
+Org Gas[l/min]:          0.0
+Operation Power[W]:    1315.3
+X-Pos[mm]:               0.2
+Y-Pos[mm]:              -3.2
+Z-Pos[mm]:              -4.3
+Ampl.-Temp[°C]:        46.68
+Fore Vacuum[mbar]:     9.0939e-004
+High Vacuum[mbar]:     1.7351e-007
+IonGetter-Press[mbar]: 1.7179e-008
+
+**************************************************************************
+Wed,30-Nov-2022 12:37:12AM   Exec PCL: skimmer_valve_open.pex()
+Wed,30-Nov-2022 12:37:13AM   CHeaterControl: Send Message TM_MEASURE_DONE.
