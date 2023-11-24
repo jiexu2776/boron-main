@@ -1,0 +1,12 @@
+- source: Hello.ipynb
+  quarto-pub:
+    - id: 5ffc83ba-02e9-448f-a031-72f0e420de85
+      url: 'https://quartopub.com/sites/hezel2000/quarto-basics'
+- source: Boron_Documentation.qmd
+  quarto-pub:
+    - id: 2e9a8db9-1adb-4654-b3ce-f1427313587a
+      url: 'https://quartopub.com/sites/hezel2000/boron-la-icp-ms-data-reduction-program'
+- source: Boron_Documentation-1.qmd
+  quarto-pub:
+    - id: 5ec44312-bc39-40b3-9ddf-355f7936b321
+      url: 'https://quartopub.com/sites/jie-xu/boron-la-icp-ms-data-reduction-program'
