@@ -1,64 +1,67 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import statistics as stt
+from scipy import stats
+from scipy.optimize import curve_fit
+import os
+import re
+from io import StringIO
+
+
+def find_exp_filenames( path_to_dir, suffix=".exp" ):
+    filenames = os.listdir(path_to_dir)
+    return [ filename for filename in filenames if filename.endswith( suffix ) ]
 
 
 
-def add_logo():
-    st.markdown(
-        """
+
+
+
+
+st.title("""Hello, welcome to the boron world""")
+
+
+
+st.header('1 Please upload your data files from Neptune')
+
+
+if st.button('Try test data here'):
+    Process_test()
+    st.session_state.stage_number = 1
+    st.session_state.uploaded_files = []
+    for file in st.session_state.tectSettingsFolder:
+        if file.endswith('.exp'):
+            # df = pd.read_csv(st.session_state.tectSettingsPath + '/' + file, sep='\t')
+            # st.session_state.uploaded_files.append(df)
+            st.session_state.uploaded_files.append(st.session_state.tectSettingsPath + '/' + file)
+
+button_style = """
         <style>
-            [data-testid="stSidebarNav"] {
-                background-image: url(https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/website-profile.gif);
-                background-repeat: no-repeat;
-                padding-top: 120px;
-                background-position: 100px 20px;
-            }
-            [data-testid="stSidebarNav"]::before {
-                content: "Main ";
-                margin-left: 100px;
-                margin-top: 10px;
-                font-size: 25px;
-                position: relative;
-                top: 100px;
-
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-add_logo()
-
-
-
-st.markdown(
-    """
-    <style>
-        [data-testid=stSidebar] [data-testid=stImage]{
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
+        .stButton > button {
+            color: black;
+            background: lightblue;
+            width: 200px;
+            height: 50px;
         }
-    </style>
-    """, unsafe_allow_html=True
-)
 
-st.sidebar.image(
-    'https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/Goethe-Logo.gif')
+        </style>
+        """
+st.markdown(button_style, unsafe_allow_html=True)
 
 
 
 
 
 
+if st.button('Clear uploaded data'):
+    st.session_state.uploaded_files = []
 
-st.header('Documentation of the Boron isotope reduction program')
+# len(st.session_state.uploaded_files) != 0:
+if 'uploaded_files' in st.session_state and len(st.session_state.uploaded_files) != 0:
+    uploaded_files = st.session_state.uploaded_files
 
-st.write('The full documentation is realised using Quarto:')
-link = '[Quarto Documentation](https://jie-xu.quarto.pub/boron-la-icp-ms-data-reduction-program/)'
-st.markdown(link, unsafe_allow_html=True)
 
-st.write('The full code is available on GitHub:')
-link = '[GitHub Code Repository](https://github.com/jiexu2776/boron-main)'
-st.markdown(link, unsafe_allow_html=True)
+else:
+    st.session_state.uploaded_files = st.file_uploader('upload files', type=['exp'], accept_multiple_files=True)
