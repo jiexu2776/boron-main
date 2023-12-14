@@ -61,7 +61,7 @@ st.markdown(
 )
 
 st.sidebar.image(
-    'https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/Goethe-Logo.gif')
+    'https://github.com/jiexu2776/boron-main/tree/main/images/Goethe-Logo.gif')
 
 
 
