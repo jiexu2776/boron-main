@@ -23,7 +23,7 @@ def add_logo():
         """
         <style>
             [data-testid="stSidebarNav"] {
-                background-image: url(https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/website-profile.gif);
+                background-image: url(https://github.com/jiexu2776/boron-main/tree/main/images/website-profile.gif);
                 background-repeat: no-repeat;
                 padding-top: 120px;
                 background-position: 100px 20px;
