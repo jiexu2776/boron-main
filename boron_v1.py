@@ -421,9 +421,8 @@ def processData():
     st.session_state.sig_str, st.session_state.sig_end = st.slider('Select signal', 0, 200, (95, 175))
     st.pyplot(sig_selection())
 
-    st.subheader('Set outlier and bulge factors')
+    st.subheader('Set outlier')
     st.write('outlier factor: means data is outlier_factor times of sd will be cut')
-    st.write('bulge factor: for 11B correction')
     
     col1, col2 = st.columns(2)
     with col1:
