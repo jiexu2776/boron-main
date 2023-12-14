@@ -10,7 +10,7 @@ Outlier rejection, background correction, intra-sequence Instrumental drift corr
 
 ## Website
 Please click here to start:
-[Boron isotope reduction app](https://boron-reduction.streamlit.app/) 
+[Boron isotope reduction app](https://boron-isotopes.streamlit.app/) 
 
 Or please visit: https://boron-reduction.streamlit.app/
 
