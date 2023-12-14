@@ -247,7 +247,7 @@ def integrat(data):
 
 
 
-def bacground_sub(factorSD, factor_B11):
+def bacground_sub(factorSD):
     #fNames_tmp = sorted(st.session_state.fNames)
     average_B = []
     for i in st.session_state.uploaded_files:
@@ -281,7 +281,7 @@ def bacground_sub(factorSD, factor_B11):
 
 
         df_bacground_sub['11B_bulc_sub'] = df_bacground_sub['11B'] - \
-            factor_B11*(df_bacground_sub['9.9']+df_bacground_sub['10.2'])/2
+            (df_bacground_sub['10.627']+df_bacground_sub['10.9'])/2
         df_bacground_sub['11B/10B'] = df_bacground_sub['11B_bulc_sub'] / \
             df_bacground_sub['10B_bulc_sub']
         fil = outlierCorrection_plot(df_bacground_sub['11B/10B'], factorSD)
@@ -428,9 +428,7 @@ def processData():
     col1, col2 = st.columns(2)
     with col1:
         outlier_factor = st.number_input('outlier factor', value=1.5)
-    with col2:
-        bulc_factor = st.number_input(
-            'bulge factor', value=0.6)
+
 
 
 
