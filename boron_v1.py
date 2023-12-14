@@ -424,9 +424,7 @@ def processData():
     st.subheader('Set outlier')
     st.write('outlier factor: means data is outlier_factor times of sd will be cut')
     
-    col1, col2 = st.columns(2)
-    with col1:
-        outlier_factor = st.number_input('outlier factor', value=1.5)
+    outlier_factor = st.number_input('outlier factor', value=1.5)
 
 
 
