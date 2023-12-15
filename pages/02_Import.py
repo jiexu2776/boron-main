@@ -1,5 +1,13 @@
 import streamlit as st
-
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import statistics as stt
+from scipy import stats
+from scipy.optimize import curve_fit
+import os
+import re
+from io import StringIO
 
 def add_logo():
     st.markdown(
