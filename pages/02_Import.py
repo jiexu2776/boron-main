@@ -10,6 +10,39 @@ import re
 from io import StringIO
 
 
+st.markdown(
+    """
+    <style>
+        [data-testid=stSidebar] [data-testid=stImage]{
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+    </style>
+    """, unsafe_allow_html=True
+)
+
+st.sidebar.image(
+    'https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/Goethe-Logo.gif')
+
+
+button_style = """
+        <style>
+        .stButton > button {
+            color: black;
+            background: lightblue;
+            width: 200px;
+            height: 50px;
+        }
+
+        </style>
+        """
+st.markdown(button_style, unsafe_allow_html=True)
+
+
+
 def parseBoronTable(file):
     #content = file.read()
     #print(type(file))
@@ -71,52 +104,12 @@ add_logo()
 
 
 
-st.markdown(
-    """
-    <style>
-        [data-testid=stSidebar] [data-testid=stImage]{
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-    </style>
-    """, unsafe_allow_html=True
-)
 
-st.sidebar.image(
-    'https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/Goethe-Logo.gif')
-
-
-
-st.title("""Please upload your data here""")
 
 def Process_test():
     st.session_state.tectSettingsPath = 'data/data to test/1. data folder20221129-214242'
     st.session_state.tectSettingsFolder = os.listdir(st.session_state.tectSettingsPath)
 #st.write(pd.read_csv('data/data to test/1. data folder20221129-214242/001_A.exp', sep='\t'))
-
-
-
-
-
-button_style = """
-        <style>
-        .stButton > button {
-            color: black;
-            background: lightblue;
-            width: 200px;
-            height: 50px;
-        }
-
-        </style>
-        """
-st.markdown(button_style, unsafe_allow_html=True)
-
-
-
-
 
 
 
@@ -146,7 +139,7 @@ def sig_selection():
     ax.legend()
     return fig
 
-
+st.title("""Please upload your data here""")
 
 if st.button('Try test data here'):
     Process_test()
