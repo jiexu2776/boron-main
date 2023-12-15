@@ -9,7 +9,10 @@ import os
 import re
 from io import StringIO
 
+st.title("""Hello, welcome to boron isotopes data reduction app""")
 st.title("""Hello, welcome to our boron isotopes data reduction app""")
+
+
 
 def add_logo():
     st.markdown(

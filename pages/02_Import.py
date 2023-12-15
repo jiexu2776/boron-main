@@ -1,7 +1,6 @@
 import streamlit as st
 
 
-
 def add_logo():
     st.markdown(
         """
@@ -49,16 +48,41 @@ st.sidebar.image(
 
 
 
+st.title("""Please upload your data here""")
+
+
+if st.button('Try test data here'):
+    Process_test()
+    st.session_state.stage_number = 1
+    st.session_state.uploaded_files = []
+    for file in st.session_state.tectSettingsFolder:
+        if file.endswith('.exp'):
+            # df = pd.read_csv(st.session_state.tectSettingsPath + '/' + file, sep='\t')
+            # st.session_state.uploaded_files.append(df)
+            st.session_state.uploaded_files.append(st.session_state.tectSettingsPath + '/' + file)
+
+button_style = """
+        <style>
+        .stButton > button {
+            color: black;
+            background: lightblue;
+            width: 200px;
+            height: 50px;
+        }
+
+        </style>
+        """
+st.markdown(button_style, unsafe_allow_html=True)
 
 
 
+if st.button('Clear uploaded data'):
+    st.session_state.uploaded_files = []
 
-st.header('Documentation of the Boron isotope reduction program')
+# len(st.session_state.uploaded_files) != 0:
+if 'uploaded_files' in st.session_state and len(st.session_state.uploaded_files) != 0:
+    uploaded_files = st.session_state.uploaded_files
 
-st.write('The full documentation is realised using Quarto:')
-link = '[Quarto Documentation](https://jie-xu.quarto.pub/boron-la-icp-ms-data-reduction-program/)'
-st.markdown(link, unsafe_allow_html=True)
 
-st.write('The full code is available on GitHub:')
-link = '[GitHub Code Repository](https://github.com/jiexu2776/boron-main)'
-st.markdown(link, unsafe_allow_html=True)
+else:
+    st.session_state.uploaded_files = st.file_uploader('upload files', type=['exp'], accept_multiple_files=True)
