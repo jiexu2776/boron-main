@@ -142,9 +142,7 @@ else:
 
 
 
-st.session_state.sample_plot = st.selectbox(
-    'Which is your sample to plot?',
-    (st.session_state.uploaded_files))
+
 
 def sig_selection():
 
@@ -174,7 +172,13 @@ def sig_selection():
 
 
 if st.session_state.uploaded_files is not None:
+
+    st.session_state.sample_plot = st.selectbox(
+        'Which is your sample to plot?',
+        (st.session_state.uploaded_files))
+
+
     st.session_state.bac_str, st.session_state.bac_end = st.slider('Select background', 0, 200, (5, 70))
     st.session_state.sig_str, st.session_state.sig_end = st.slider('Select signal', 0, 200, (95, 175))
     
-    sig_selection()
+    st.pyplot(sig_selection())
