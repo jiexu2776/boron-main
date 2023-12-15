@@ -51,7 +51,7 @@ st.sidebar.image(
 st.title("""Please upload your data here""")
 
 def Process_test():
-    st.session_state.tectSettingsPath = 'D:/Github-Jie/boron-main/data/data to test/1. data folder20221129-214242'
+    st.session_state.tectSettingsPath = 'https://github.com/jiexu2776/boron-main/tree/main/data/data to test/1. data folder20221129-214242'
     st.session_state.tectSettingsFolder = os.listdir(st.session_state.tectSettingsPath)
 
 
