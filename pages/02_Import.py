@@ -138,3 +138,5 @@ def sig_selection():
     ax.legend()
     return fig
 
+sig_selection
+
