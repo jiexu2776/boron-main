@@ -9,6 +9,40 @@ import os
 import re
 from io import StringIO
 
+
+def parseBoronTable(file):
+    #content = file.read()
+    #print(type(file))
+
+    if isinstance(file, str):
+        with open(file, "r") as _:
+            content= _.read()
+        fname  = file.split('/')[-1]
+        # fname = file
+    else:   # streamlit file object
+        content = file.getvalue().decode("utf-8")
+        fname = file.__dict__["name"]
+    _start = content.find("Cycle\tTime")
+    _end = content.find("***\tCup")
+    myTable = content[_start:_end-1]
+
+    #cleanFname = f"temp/{fname}_cleanTable"
+    
+    #with open(cleanFname, "w") as _:
+    #buffer = BytesIO(myTable.)
+
+    df = pd.read_csv(StringIO(myTable),
+                     sep='\t',
+                     # dtype="float"   #not working -->time
+                     )
+
+
+
+    return df, fname
+
+
+
+
 def add_logo():
     st.markdown(
         """
@@ -138,6 +172,9 @@ def sig_selection():
     ax.legend()
     return fig
 
-st.session_state.bac_str, st.session_state.bac_end = st.slider('Select background', 0, 200, (5, 70))
-st.session_state.sig_str, st.session_state.sig_end = st.slider('Select signal', 0, 200, (95, 175))
-sig_selection()
+
+if st.session_state.uploaded_files not none:
+    st.session_state.bac_str, st.session_state.bac_end = st.slider('Select background', 0, 200, (5, 70))
+    st.session_state.sig_str, st.session_state.sig_end = st.slider('Select signal', 0, 200, (95, 175))
+    
+    sig_selection()
