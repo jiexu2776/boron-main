@@ -50,7 +50,12 @@ st.sidebar.image(
 
 st.title("""Please upload your data here""")
 
+def Process_test():
+    st.session_state.tectSettingsPath = 'data/data to test/1. data folder20221129-214242'
+    st.session_state.tectSettingsFolder = os.listdir(st.session_state.tectSettingsPath)
 
+
+    
 if st.button('Try test data here'):
     Process_test()
     st.session_state.stage_number = 1
