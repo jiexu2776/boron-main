@@ -101,18 +101,6 @@ def Process_test():
 
 
 
-
-if st.button('Try test data here'):
-    Process_test()
-    st.session_state.stage_number = 1
-    st.session_state.uploaded_files = []
-    for file in st.session_state.tectSettingsFolder:
-        if file.endswith('.exp'):
-            # df = pd.read_csv(st.session_state.tectSettingsPath + '/' + file, sep='\t')
-            # st.session_state.uploaded_files.append(df)
-            st.session_state.uploaded_files.append(st.session_state.tectSettingsPath + '/' + file)
-
-
 button_style = """
         <style>
         .stButton > button {
@@ -126,18 +114,6 @@ button_style = """
         """
 st.markdown(button_style, unsafe_allow_html=True)
 
-
-
-if st.button('Clear uploaded data'):
-    st.session_state.uploaded_files = []
-
-# len(st.session_state.uploaded_files) != 0:
-if 'uploaded_files' in st.session_state and len(st.session_state.uploaded_files) != 0:
-    uploaded_files = st.session_state.uploaded_files
-
-
-else:
-    st.session_state.uploaded_files = st.file_uploader('upload files', type=['exp'], accept_multiple_files=True)
 
 
 
@@ -171,7 +147,32 @@ def sig_selection():
     return fig
 
 
-if st.session_state.uploaded_files is not None:
+
+if st.button('Try test data here'):
+    Process_test()
+    st.session_state.stage_number = 1
+    st.session_state.uploaded_files = []
+    for file in st.session_state.tectSettingsFolder:
+        if file.endswith('.exp'):
+            # df = pd.read_csv(st.session_state.tectSettingsPath + '/' + file, sep='\t')
+            # st.session_state.uploaded_files.append(df)
+            st.session_state.uploaded_files.append(st.session_state.tectSettingsPath + '/' + file)
+
+if st.button('Clear uploaded data'):
+    st.session_state.uploaded_files = []
+
+# len(st.session_state.uploaded_files) != 0:
+if 'uploaded_files' in st.session_state and len(st.session_state.uploaded_files) != 0:
+    uploaded_files = st.session_state.uploaded_files
+
+
+else:
+    st.session_state.uploaded_files = st.file_uploader('upload files', type=['exp'], accept_multiple_files=True)
+
+
+
+
+if len(st.session_state.uploaded_files) != 0:
 
     st.session_state.sample_plot = st.selectbox(
         'Which is your sample to plot?',
