@@ -53,7 +53,7 @@ st.title("""Please upload your data here""")
 #def Process_test():
  #   st.session_state.tectSettingsPath = 'https://github.com/jiexu2776/boron-main/tree/main/data/data to test/1. data folder20221129-214242'
   #  st.session_state.tectSettingsFolder = os.listdir(st.session_state.tectSettingsPath)
-st.dataframe(pd.read_csv('../data/data to test/1. data folder20221129-214242/001_A.exp', sep='\t'))
+st.write(pd.read_csv('../data/data to test/1. data folder20221129-214242/001_A.exp', sep='\t'))
 
 
 if st.button('Try test data here'):
