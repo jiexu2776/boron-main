@@ -64,6 +64,10 @@ def Process_test():
 #st.write(pd.read_csv('data/data to test/1. data folder20221129-214242/001_A.exp', sep='\t'))
 
 
+
+
+
+
 if st.button('Try test data here'):
     Process_test()
     st.session_state.stage_number = 1
@@ -73,6 +77,7 @@ if st.button('Try test data here'):
             # df = pd.read_csv(st.session_state.tectSettingsPath + '/' + file, sep='\t')
             # st.session_state.uploaded_files.append(df)
             st.session_state.uploaded_files.append(st.session_state.tectSettingsPath + '/' + file)
+
 
 button_style = """
         <style>
@@ -99,3 +104,37 @@ if 'uploaded_files' in st.session_state and len(st.session_state.uploaded_files)
 
 else:
     st.session_state.uploaded_files = st.file_uploader('upload files', type=['exp'], accept_multiple_files=True)
+
+
+
+
+st.session_state.sample_plot = st.selectbox(
+    'Which is your sample to plot?',
+    (st.session_state.uploaded_files))
+
+def sig_selection():
+
+    #fNames_tmp = sorted(st.session_state.fNames)
+    average_B = []
+    # if st.session_state.stage_number =  1:
+    #     df_data, filename = Process_test(i)
+    # else:
+    #     df_data, filename = parseBoronTable(i)
+    df_data, filename = parseBoronTable(st.session_state.sample_plot)
+    df_data = df_data[['Cycle', '9.9', '10B', '10.2', '11B']].astype(float)
+
+    fig, ax = plt.subplots()
+    ax.plot(df_data['11B'], label='11B', c='green')
+    ax.plot(df_data['10B'], label='10B', c='firebrick')
+    ax.set_ylabel('signal intensity')
+    ax.set_xlabel('cycle')
+    #ax.axvline(x=select_index, color="red", linestyle="--")
+    x = df_data['11B'].index.to_numpy()
+    ax.fill_between(x, max(df_data['11B']), where=(
+        x < st.session_state.sig_end) & (x > st.session_state.sig_str), alpha=0.5)
+    ax.fill_between(x, max(df_data['11B']), where=(
+        x < st.session_state.bac_end) & (x > st.session_state.bac_str), alpha=0.5)
+
+    ax.legend()
+    return fig
+
