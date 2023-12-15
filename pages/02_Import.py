@@ -173,7 +173,7 @@ def sig_selection():
     return fig
 
 
-if len(st.session_state.uploaded_files) != null:
+if st.session_state.uploaded_files is not None:
     st.session_state.bac_str, st.session_state.bac_end = st.slider('Select background', 0, 200, (5, 70))
     st.session_state.sig_str, st.session_state.sig_end = st.slider('Select signal', 0, 200, (95, 175))
     
