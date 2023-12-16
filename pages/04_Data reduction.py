@@ -133,6 +133,35 @@ def bacground_sub(factorSD):
 
     return df, fig1
 
+
+def regression(x, y, ref_stand, order, listname):
+    #order = st.session_state.regress
+    fig2, ax = plt.subplots()
+    ax.plot(x, y, label='measuered', marker='o', linestyle='none')
+    # x_use = np.array(x)
+    popt, pcov = curve_fit(polynomFit, xdata=x,
+                           ydata=y, 
+                           p0=[0]*(int(order)+1)
+                           )
+    fitData = polynomFit(x, *popt)
+
+    ax.plot(x, fitData, label='polyn. fit, order ' +
+            str(order), linestyle='--')
+    ax.legend(loc='upper left', bbox_to_anchor=(1.05, 1))
+    ax.set_ylabel('raw data')
+    ax.set_xlabel('sequence')
+    st.pyplot(fig2)
+    res = []
+    for unknown in listname:
+        y_unknown = ref_stand / polynomFit(unknown, *popt)
+        res.append({'factor': y_unknown})
+    return(pd.DataFrame(res))
+
+
+
+
+
+
 st.subheader('Set outlier')
 st.write('outlier factor: means data is outlier_factor times of sd will be cut')
     
@@ -145,4 +174,97 @@ outlier_factor = st.number_input('outlier factor', value=1.5)
  #   df_data = st.session_state.average_B
 #else:
 bacground_sub(outlier_factor)
+
+
+
+st.subheader('Drift correction')
+st.write('Please choose your standard for boron isotopes correction')
+
+col1, col2 = st.columns([1, 3])
+
+with col1:
+    standard = st.selectbox(
+        'Select standard',
+        ('GSD-1G', 'NIST SRM 612', 'B5', 'GSC-1G'))
+    if standard == 'B5':
+        number_iso = float(4.0332057)
+        number_trace = float(8.42)
+        SRM951_value = float(4.0492)
+
+    if standard == 'NIST SRM 612':
+        number_iso = float(4.05015)
+        number_trace = float(35)
+        SRM951_value = float(4.0545)
+
+    if standard == 'GSD-1G':
+        number_iso = float(4.09548)
+        number_trace = float(50)
+        SRM951_value = float(4.0545)
+
+    if standard == 'GSC-1G':
+        number_iso = float(4.1378)
+        number_trace = float(22)
+        SRM951_value = float(4.04362)
+
+    st.session_state.standard_values = {
+        "number_iso" : number_iso,
+        "number_trace" : number_trace,
+        "SRM951_value" : SRM951_value
+
+    }
+
+st.write(st.session_state.standard_values)
+st.session_state.sample_correction = st.selectbox(
+    'Select standard designation',
+    ('A', 'B', 'C', 'D'))
+
+
+st.session_state.default_reg_level = 4
+st.session_state.regress_level = st.number_input('regression level (4 is recommended)', step=1, value=st.session_state.default_reg_level, format='%X'
+                                                    )
+
+# Choose A/B/C/D/U to get the regression for drift correction
+
+with col2:
+    df_data['file name'] = selSmpType(df_data['filename'])
+
+
+    s = []
+    for i in df_data['file name']:
+        s.append(int(i.split('_')[0]))
+    df_data[' Sequence Number'] = s
+
+    df_data.sort_values(by = [' Sequence Number'], inplace=True)#.reset_index(drop = True)
+
+    fil = df_data['file name'].str.contains(st.session_state.sample_correction)
+    df_data_B = df_data[fil]
+
+    y_isotope = df_data_B['11B/10B_row'].astype(float)
+    y_11B = df_data_B['11B'].astype(float)
+    x = df_data_B[' Sequence Number']
+    # x = df_data_B.index.to_numpy()
+    # st.write(x)
+    # get the regression function and get all corrected factors for all measurements
+    #factor_iso = regression(x,y_isotope, 4.05, 4, df_data.index.to_numpy())
+    #factor_B = regression(x,y_11B, 35, 4, df_data.index.to_numpy())
+    factor_iso = regression(x, y_isotope,
+                            number_iso,
+                            st.session_state.regress_level if "regress_level" in st.session_state else st.session_state.default_reg_level,
+                            df_data[' Sequence Number']
+                            # df_data.index.to_numpy()
+                            )
+
+    # st.write(x)
+    # get the regression function and get all corrected factors for all measurements
+
+# use corrected factors to correct machine drift and calculate isotope values for results
+df_data['factor_iso'] = factor_iso
+
+df_data['11B/10B_corrected'] = df_data['factor_iso']*df_data['11B/10B_row']
+df_data['δ11B'] = ((df_data['11B/10B_corrected']/SRM951_value)-1)*1000
+df_data['δ11B_se'] = (df_data['se']*df_data['factor_iso']/SRM951_value)*1000
+
+##df_data_B is a dataframe for standard, df_data is a dataframe for all samples;
+st.session_state.df_data = df_data
+st.session_state.df_data_B = df_data_B
 
