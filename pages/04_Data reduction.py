@@ -110,6 +110,8 @@ def bacground_sub(factorSD):
 
         res_iso, res_iso_outlier = outlierCorrection(df_bacground_sub['11B/10B'], factorSD)
 
+
+
         res_11B, res_11B_outlier = outlierCorrection(df_bacground_sub['11B'], factorSD)
 
 
@@ -119,6 +121,8 @@ def bacground_sub(factorSD):
             ax.plot(res_iso_outlier, 'ro', label='outliers')
             ax.set_ylabel('$^{11}B$/$^{1O}B$')
             ax.legend()
+            ax.axhline(y=res_iso.mean(), color="black", linestyle="--")
+
             st.pyplot(fig1)
         #   
         average_B.append({'filename': filename, '11B': np.mean(res_11B), '11B/10B_row': np.mean(res_iso), 'se': np.std(res_iso)/np.sqrt(len(res_iso))})
