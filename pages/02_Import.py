@@ -120,6 +120,7 @@ def sig_selection():
     return fig
 
 st.title("""Please upload your data here""")
+st.subheader('1. Upload your files from Neptune')
 
 if st.button('Try test data here'):
     Process_test()
@@ -157,7 +158,7 @@ if len(st.session_state.uploaded_files) != 0:
 
 
 #if "df_data" in st.session_state:
-st.subheader('Upload your log file from Laser')
+st.subheader('2. Upload your log file from Laser')
 if st.button('Test laser data'):
     st.session_state.uploaded_laser_file = 'data/data to test/2. laser file.csv'
 
