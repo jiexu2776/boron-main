@@ -191,8 +191,11 @@ outlier_factor = st.number_input('outlier factor', value=1.5)
     #A  = st.info("Reloading already parsed dataframe!")
  #   df_data = st.session_state.average_B
 #else:
-bacground_sub(outlier_factor)
-
+if "average_B" in st.session_state:
+    #A  = st.info("Reloading already parsed dataframe!")
+    st.session_state.df_data = st.session_state.average_B
+else:
+    st.session_state.df_data = bacground_sub(outlier_factor)
 
 
 st.subheader('Drift correction')
@@ -243,23 +246,25 @@ st.session_state.regress_level = st.number_input('regression level (4 is recomme
 
 # Choose A/B/C/D/U to get the regression for drift correction
 
+
+
 with col2:
-    df_data['file name'] = selSmpType(df_data['filename'])
+    st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
 
 
     s = []
-    for i in df_data['file name']:
+    for i in st.session_state.df_data['file name']:
         s.append(int(i.split('_')[0]))
-    df_data[' Sequence Number'] = s
+    st.session_state.df_data[' Sequence Number'] = s
 
-    df_data.sort_values(by = [' Sequence Number'], inplace=True)#.reset_index(drop = True)
+    st.session_state.df_data.sort_values(by = [' Sequence Number'], inplace=True)#.reset_index(drop = True)
 
-    fil = df_data['file name'].str.contains(st.session_state.sample_correction)
-    df_data_B = df_data[fil]
+    fil = st.session_state.df_data['file name'].str.contains(st.session_state.sample_correction)
+    st.session_state.df_data_B = st.session_state.df_data[fil]
 
-    y_isotope = df_data_B['11B/10B_row'].astype(float)
-    y_11B = df_data_B['11B'].astype(float)
-    x = df_data_B[' Sequence Number']
+    y_isotope = st.session_state.df_data_B['11B/10B_row'].astype(float)
+    y_11B = st.session_state.df_data_B['11B'].astype(float)
+    x = st.session_state.df_data_B[' Sequence Number']
     # x = df_data_B.index.to_numpy()
     # st.write(x)
     # get the regression function and get all corrected factors for all measurements
@@ -268,7 +273,7 @@ with col2:
     factor_iso = regression(x, y_isotope,
                             number_iso,
                             st.session_state.regress_level if "regress_level" in st.session_state else st.session_state.default_reg_level,
-                            df_data[' Sequence Number']
+                            st.session_state.df_data[' Sequence Number']
                             # df_data.index.to_numpy()
                             )
 
@@ -276,13 +281,13 @@ with col2:
     # get the regression function and get all corrected factors for all measurements
 
 # use corrected factors to correct machine drift and calculate isotope values for results
-df_data['factor_iso'] = factor_iso
+st.session_state.df_data['factor_iso'] = factor_iso
 
-df_data['11B/10B_corrected'] = df_data['factor_iso']*df_data['11B/10B_row']
-df_data['δ11B'] = ((df_data['11B/10B_corrected']/SRM951_value)-1)*1000
-df_data['δ11B_se'] = (df_data['se']*df_data['factor_iso']/SRM951_value)*1000
+st.session_state.df_data['11B/10B_corrected'] = st.session_state.df_data['factor_iso']*st.session_state.df_data['11B/10B_row']
+st.session_state.df_data['δ11B'] = ((st.session_state.df_data['11B/10B_corrected']/SRM951_value)-1)*1000
+st.session_state.df_data['δ11B_se'] = (st.session_state.df_data['se']*st.session_state.df_data['factor_iso']/SRM951_value)*1000
 
 ##df_data_B is a dataframe for standard, df_data is a dataframe for all samples;
-st.session_state.df_data = df_data
-st.session_state.df_data_B = df_data_B
+st.session_state.df_data = st.session_state.df_data
+st.session_state.df_data_B = st.session_state.df_data_B
 
