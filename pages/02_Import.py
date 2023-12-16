@@ -154,11 +154,12 @@ if len(st.session_state.uploaded_files) != 0:
     st.session_state.sig_str, st.session_state.sig_end = st.slider('Select signal', 0, 200, (95, 175))
     
     st.pyplot(sig_selection())
-    
-if "df_data" in st.session_state:
-    st.subheader('Upload your log file from Laser')
-    if st.button('Test laser data'):
-        st.session_state.uploaded_laser_file = 'data/data to test/2. laser file.csv'
 
-    else:    
-        st.session_state.uploaded_laser_file = st.file_uploader("Choose a laser file", type='csv')
+
+#if "df_data" in st.session_state:
+st.subheader('Upload your log file from Laser')
+if st.button('Test laser data'):
+    st.session_state.uploaded_laser_file = 'data/data to test/2. laser file.csv'
+
+else:    
+    st.session_state.uploaded_laser_file = st.file_uploader("Choose a laser file", type='csv')
