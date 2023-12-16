@@ -194,10 +194,7 @@ st.write('outlier factor: means data is outlier_factor times of sd will be cut')
 
 outlier_factor = st.number_input('outlier factor', value=1.5)
 
-#if "average_B" in st.session_state:
-    #A  = st.info("Reloading already parsed dataframe!")
- #   df_data = st.session_state.average_B
-#else:
+
 if "average_B" in st.session_state:
     #A  = st.info("Reloading already parsed dataframe!")
     st.session_state.df_data = st.session_state.average_B
@@ -297,3 +294,72 @@ st.session_state.df_data['δ11B_se'] = (st.session_state.df_data['se']*st.sessio
 st.session_state.df_data = st.session_state.df_data
 st.session_state.df_data_B = st.session_state.df_data_B
 
+
+if st.session_state.uploaded_laser_file is not None:
+        st.session_state.df_Laser = pd.read_csv(st.session_state.uploaded_laser_file)
+
+        st.session_state.df_Laser_part1 = st.session_state.df_Laser[st.session_state.df_Laser[' Laser State']
+                                == 'On'].iloc[:, [13, 20, 21]]
+        st.session_state.df_Laser_part2 = st.session_state.df_Laser[st.session_state.df_Laser[' Sequence Number'].notnull()].iloc[:, [
+                1, 4]]
+
+        st.session_state.df_Laser_res = pd.concat([st.session_state.df_Laser_part2.reset_index(
+                drop=True), st.session_state.df_Laser_part1.reset_index(drop=True)], axis=1)
+
+                
+            # #merge laser data and neptune data
+
+        st.session_state.df_map1 = st.session_state.df_Laser_res.merge(st.session_state.df_data, on=' Sequence Number')
+        
+
+        st.subheader('2.1 B concerntration correction')
+
+        #st.session_state.default_reg_level_B = 4
+        st.session_state.regress_level_B = st.number_input('insert your regression level for [B] (4 is recommended)', 
+        step=1, 
+        value=st.session_state.default_reg_level, 
+        format='%X'
+                                                        )     
+
+
+        y_isotope = st.session_state.df_data_B['11B/10B_row']
+        y_11B = st.session_state.df_data_B['11B']
+
+        x = st.session_state.df_data_B[' Sequence Number']
+        factor_B = regression(x, y_11B, st.session_state.standard_values["number_trace"],
+                        st.session_state.regress_level_B if "regress_level_B" in st.session_state else st.session_state.default_reg_level_B, 
+                        st.session_state.df_data[' Sequence Number']
+                        )
+        st.session_state.df_map1['factor_B'] = factor_B
+        
+
+        depth_ref = st.number_input('insert the abalation depth of selected reference / µm', value = 30.0)
+        depth_sample = st.number_input('insert the abalation depth of other samples / µm', value = 30.0)
+                
+        depth_ratios = []
+        for i in st.session_state.df_map1['file name'].str.contains('A'):
+            if i == True:
+                depth_ratio = 1 
+            else:
+                depth_ratio = depth_sample / depth_ref
+            depth_ratios.append(depth_ratio)
+
+        st.session_state.df_map1['depth_correction'] = depth_ratios
+
+        spot_shape = st.selectbox(
+                    'What is the type of your spots?',
+                    ('circle', 'squre'))
+        if spot_shape == 'circle':
+            st.session_state.df_map1[' Spot Size (um)'] = st.session_state.df_Laser_res[' Spot Size (um)']
+            ref = ((st.session_state.df_map1[st.session_state.df_map1['file name'].str.contains(st.session_state.sample_correction)][' Spot Size (um)']/2)**2).mean()
+            st.session_state.df_map1['[B]_corrected'] = st.session_state.df_map1['11B']*st.session_state.df_map1['factor_B'] * (ref / ((st.session_state.df_map1[' Spot Size (um)']/2)**2) / depth_ratios)
+
+        if spot_shape == 'squre':
+
+            dia = st.session_state.df_map1[' Spot Size (um)']
+            spotsize = dia.str.split(' ').str[0].apply(lambda x: float(x))
+            st.session_state.df_map1[' Spot Size (um)'] = spotsize
+            ref = ((st.session_state.df_map1[st.session_state.df_map1['file name'].str.contains(st.session_state.sample_correction)][' Spot Size (um)'])**2).mean()
+            st.session_state.df_map1['[B]_corrected'] = st.session_state.df_map1['11B']*st.session_state.df_map1['factor_B'] * (ref / ((st.session_state.df_map1[' Spot Size (um)'])**2) / depth_ratios)   
+
+        st.session_state.df_map1 = st.session_state.df_map1
