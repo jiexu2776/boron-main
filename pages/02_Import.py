@@ -44,14 +44,10 @@ st.markdown(button_style, unsafe_allow_html=True)
 
 
 def parseBoronTable(file):
-    #content = file.read()
-    #print(type(file))
-
     if isinstance(file, str):
         with open(file, "r") as _:
             content= _.read()
         fname  = file.split('/')[-1]
-        # fname = file
     else:   # streamlit file object
         content = file.getvalue().decode("utf-8")
         fname = file.__dict__["name"]
@@ -59,18 +55,10 @@ def parseBoronTable(file):
     _end = content.find("***\tCup")
     myTable = content[_start:_end-1]
 
-    #cleanFname = f"temp/{fname}_cleanTable"
-    
-    #with open(cleanFname, "w") as _:
-    #buffer = BytesIO(myTable.)
-
     df = pd.read_csv(StringIO(myTable),
                      sep='\t',
                      # dtype="float"   #not working -->time
                      )
-
-
-
     return df, fname
 
 
@@ -104,23 +92,16 @@ add_logo()
 
 
 
-
-
 def Process_test():
     st.session_state.tectSettingsPath = 'data/data to test/1. data folder20221129-214242'
     st.session_state.tectSettingsFolder = os.listdir(st.session_state.tectSettingsPath)
-#st.write(pd.read_csv('data/data to test/1. data folder20221129-214242/001_A.exp', sep='\t'))
 
 
 
 def sig_selection():
 
-    #fNames_tmp = sorted(st.session_state.fNames)
     average_B = []
-    # if st.session_state.stage_number =  1:
-    #     df_data, filename = Process_test(i)
-    # else:
-    #     df_data, filename = parseBoronTable(i)
+
     df_data, filename = parseBoronTable(st.session_state.sample_plot)
     df_data = df_data[['Cycle', '9.9', '10B', '10.2', '11B']].astype(float)
 
@@ -129,7 +110,6 @@ def sig_selection():
     ax.plot(df_data['10B'], label='10B', c='firebrick')
     ax.set_ylabel('signal intensity')
     ax.set_xlabel('cycle')
-    #ax.axvline(x=select_index, color="red", linestyle="--")
     x = df_data['11B'].index.to_numpy()
     ax.fill_between(x, max(df_data['11B']), where=(
         x < st.session_state.sig_end) & (x > st.session_state.sig_str), alpha=0.5)
@@ -147,8 +127,6 @@ if st.button('Try test data here'):
     st.session_state.uploaded_files = []
     for file in st.session_state.tectSettingsFolder:
         if file.endswith('.exp'):
-            # df = pd.read_csv(st.session_state.tectSettingsPath + '/' + file, sep='\t')
-            # st.session_state.uploaded_files.append(df)
             st.session_state.uploaded_files.append(st.session_state.tectSettingsPath + '/' + file)
 
 if st.button('Clear uploaded data'):

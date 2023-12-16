@@ -434,7 +434,7 @@ def processData():
         #A  = st.info("Reloading already parsed dataframe!")
         df_data = st.session_state.average_B
     else:
-        df_data = bacground_sub(outlier_factor, bulc_factor)
+        df_data = bacground_sub(outlier_factor)
 
 
     st.subheader('Drift correction')
