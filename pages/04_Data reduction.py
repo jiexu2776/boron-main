@@ -208,29 +208,29 @@ with col1:
         'Select standard',
         ('GSD-1G', 'NIST SRM 612', 'B5', 'GSC-1G'))
     if standard == 'B5':
-        number_iso = float(4.0332057)
-        number_trace = float(8.42)
-        SRM951_value = float(4.0492)
+        st.session_state.number_iso = float(4.0332057)
+        st.session_state.number_trace = float(8.42)
+        st.session_state.SRM951_value = float(4.0492)
 
     if standard == 'NIST SRM 612':
-        number_iso = float(4.05015)
-        number_trace = float(35)
-        SRM951_value = float(4.0545)
+        st.session_state.number_iso = float(4.05015)
+        st.session_state.number_trace = float(35)
+        st.session_state.SRM951_value = float(4.0545)
 
     if standard == 'GSD-1G':
-        number_iso = float(4.09548)
-        number_trace = float(50)
-        SRM951_value = float(4.0545)
+        st.session_state.number_iso = float(4.09548)
+        st.session_state.number_trace = float(50)
+        st.session_state.SRM951_value = float(4.0545)
 
     if standard == 'GSC-1G':
-        number_iso = float(4.1378)
-        number_trace = float(22)
-        SRM951_value = float(4.04362)
+        st.session_state.number_iso = float(4.1378)
+        st.session_state.number_trace = float(22)
+        st.session_state.SRM951_value = float(4.04362)
 
     st.session_state.standard_values = {
-        "number_iso" : number_iso,
-        "number_trace" : number_trace,
-        "SRM951_value" : SRM951_value
+        "number_iso" : st.session_state.number_iso,
+        "number_trace" : st.session_state.number_trace,
+        "SRM951_value" : st.session_state.SRM951_value
 
     }
 
@@ -271,7 +271,7 @@ with col2:
     #factor_iso = regression(x,y_isotope, 4.05, 4, df_data.index.to_numpy())
     #factor_B = regression(x,y_11B, 35, 4, df_data.index.to_numpy())
     factor_iso = regression(x, y_isotope,
-                            number_iso,
+                            st.session_state.number_iso,
                             st.session_state.regress_level if "regress_level" in st.session_state else st.session_state.default_reg_level,
                             st.session_state.df_data[' Sequence Number']
                             # df_data.index.to_numpy()
