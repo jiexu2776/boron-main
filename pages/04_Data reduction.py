@@ -151,6 +151,13 @@ def bacground_sub(factorSD):
 
     return df, fig1
 
+def polynomFit(inp, *args):
+    x = inp
+    res = 0
+    for order in range(len(args)):
+        res += args[order] * x**order
+    return res
+
 
 def regression(x, y, ref_stand, order, listname):
     #order = st.session_state.regress
