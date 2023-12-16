@@ -60,6 +60,26 @@ st.sidebar.image(
 st.header('B-Isotopes data reduction')
 
 
+def parseBoronTable(file):
+    if isinstance(file, str):
+        with open(file, "r") as _:
+            content= _.read()
+        fname  = file.split('/')[-1]
+    else:   # streamlit file object
+        content = file.getvalue().decode("utf-8")
+        fname = file.__dict__["name"]
+    _start = content.find("Cycle\tTime")
+    _end = content.find("***\tCup")
+    myTable = content[_start:_end-1]
+
+    df = pd.read_csv(StringIO(myTable),
+                     sep='\t',
+                     # dtype="float"   #not working -->time
+                     )
+    return df, fname
+
+
+
 def outlierCorrection(data, factorSD):
     element_signal = np.array(data)
     mean = np.mean(element_signal, axis=0)
@@ -112,10 +132,9 @@ def bacground_sub(factorSD):
 st.subheader('Set outlier')
 st.write('outlier factor: means data is outlier_factor times of sd will be cut')
     
+
+
 outlier_factor = st.number_input('outlier factor', value=1.5)
-
-
-
 
 #if "average_B" in st.session_state:
     #A  = st.info("Reloading already parsed dataframe!")
