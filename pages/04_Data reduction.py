@@ -291,7 +291,7 @@ st.session_state.df_data['factor_iso'] = factor_iso
 
 st.session_state.df_data['11B/10B_corrected'] = st.session_state.df_data['factor_iso']*st.session_state.df_data['11B/10B_row']
 st.session_state.df_data['δ11B'] = ((st.session_state.df_data['11B/10B_corrected']/st.session_state.SRM951_value)-1)*1000
-st.session_state.df_data['δ11B_se'] = (st.session_state.df_data['se']*st.session_state.df_data['factor_iso']/SRM951_value)*1000
+st.session_state.df_data['δ11B_se'] = (st.session_state.df_data['se']*st.session_state.df_data['factor_iso']/st.session_state.SRM951_value)*1000
 
 ##df_data_B is a dataframe for standard, df_data is a dataframe for all samples;
 st.session_state.df_data = st.session_state.df_data
