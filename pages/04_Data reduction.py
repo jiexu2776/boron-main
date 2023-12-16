@@ -270,8 +270,7 @@ with col2:
     # get the regression function and get all corrected factors for all measurements
     #factor_iso = regression(x,y_isotope, 4.05, 4, df_data.index.to_numpy())
     #factor_B = regression(x,y_11B, 35, 4, df_data.index.to_numpy())
-    factor_iso = regression(x, y_isotope,
-                            st.session_state.number_iso,
+    factor_iso = regression(x, y_isotope,st.session_state.number_iso,
                             st.session_state.regress_level if "regress_level" in st.session_state else st.session_state.default_reg_level,
                             st.session_state.df_data[' Sequence Number']
                             # df_data.index.to_numpy()
