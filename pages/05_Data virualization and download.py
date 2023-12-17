@@ -1,5 +1,13 @@
 import streamlit as st
-
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import statistics as stt
+from scipy import stats
+from scipy.optimize import curve_fit
+import os
+import re
+from io import StringIO
 
 
 def add_logo():
@@ -68,7 +76,7 @@ if "df_map1" in st.session_state:
             'Which srandard data would you like to display?',
             ('A', 'B', 'C', 'D'))
 
-        fig, ax = plt.subplots(figsize=(9, 6))
+        fig, ax = plt.subplots(1, 1, figsize=(9, 6))
         # ax.plot([0,1],[0,1], transform=ax.transAxes, c = 'red')
         filA = st.session_state.df_all['file name'].str.contains(st.session_state.option)
         # filB = st.session_state.df_all['file name'].str.contains('B')
