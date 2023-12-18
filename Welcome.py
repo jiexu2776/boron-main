@@ -66,7 +66,7 @@ st.header('Here are five pages from left Main menu', divider='rainbow')
 
 st.subheader(':red[(1) Import data:] upload datafiles from Neptune and laser')
 
-st.write(':orange[(2) Data reduction:] choose primary standard for intra-sequence instrumental correction')
+st.subheader(':green[(2) Data reduction:] choose standard for intra-sequence instrumental correction')
 
 
-st.write(':blue[(3)Data virualization and download:] check results and download files')
+st.subheader(':blue[(3)Data virualization and download:] check results and download files')
