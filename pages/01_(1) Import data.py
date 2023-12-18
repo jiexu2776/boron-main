@@ -171,5 +171,5 @@ if 'uploaded_laser_file' in st.session_state and len(st.session_state.uploaded_f
 
 else:
 
-    st.write('not been uploaded')
+    st.write('No laser file here')
 
