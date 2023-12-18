@@ -62,9 +62,9 @@ st.sidebar.image(
 
 st.title("""Hello, welcome to the boron world""")
 
-st.header('Here are five pages from Main menu in left side')
+st.header('Here are five pages from left Main menu', divider='rainbow')
 
-st.subheader('$color{red}{(1) Import data: }$upload datafiles from Neptune_Plus and laser')
+st.subheader(':blue[(1) Import data:] upload datafiles from Neptune_Plus and laser')
 
 st.write('2. Data reduction: choose primary standard for intra-sequence instrumental correction')
 
