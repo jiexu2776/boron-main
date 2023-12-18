@@ -166,7 +166,7 @@ else:
     st.session_state.uploaded_laser_file = st.file_uploader("Choose a laser file", type='csv')
 
 
-if 'uploaded_laser_file' in st.session_state:
+if 'uploaded_laser_file' in st.session_state and len(st.session_state.uploaded_files) != 0:
     st.write('your laser file has been uploaded')
 
 else:
