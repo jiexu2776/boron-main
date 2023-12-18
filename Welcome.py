@@ -64,7 +64,7 @@ st.title("""Hello, welcome to the boron world""")
 
 st.header('Here are five pages from left Main menu', divider='rainbow')
 
-st.subheader(':red[(1) Import data:] upload datafiles from Neptune and laser')
+st.subheader(':red[(1) Import data:] upload datafiles from Neptune_Plus and laser')
 
 st.subheader(':green[(2) Data reduction:] choose standard for intra-sequence instrumental correction')
 
