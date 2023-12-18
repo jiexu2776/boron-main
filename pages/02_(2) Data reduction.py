@@ -96,9 +96,9 @@ def selSmpType(dataFiles):
 
     l = []
     for file in dataFiles:
-        print(file)
+        # print(file)
         match = re.search(re_patter,file)[0]
-        print(match)
+        # print(match)
         l.append(match)
         #if "/" 
         #'data/data to test/1. data folder20221129-214242/file.....'
