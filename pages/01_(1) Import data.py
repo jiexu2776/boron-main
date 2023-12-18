@@ -164,3 +164,7 @@ if st.button('Test laser data'):
 
 else:    
     st.session_state.uploaded_laser_file = st.file_uploader("Choose a laser file", type='csv')
+
+
+if len(st.session_state.uploaded_laser_file)!= 0:
+    st.write('your laser file has been uploaded')
