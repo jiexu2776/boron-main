@@ -97,15 +97,13 @@ def selSmpType(dataFiles):
     l = []
     for file in dataFiles:
         # print(file)
-        match = re.search(re_patter,file)[0]
+        match = re.search(re_patter,file)
         print(match)
         l.append(match)
         #if "/" 
         #'data/data to test/1. data folder20221129-214242/file.....'
         #l.append(float(file.split("/")[-1].split('_')[0]))
     return l
-
-
 
 
 
