@@ -97,8 +97,8 @@ def selSmpType(dataFiles):
     l = []
     for file in dataFiles:
         # print(file)
-        match = int(re.search(re_patter,file)[0])
-        # print(match)
+        match = re.search(re_patter,file)[0]
+        print(match)
         l.append(match)
         #if "/" 
         #'data/data to test/1. data folder20221129-214242/file.....'
@@ -254,6 +254,7 @@ with col1:
 
 with col2:
     st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
+    print(st.session_state.df_data['file name'])
 
 
     s = []
