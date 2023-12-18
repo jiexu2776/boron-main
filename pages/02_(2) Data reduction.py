@@ -258,8 +258,8 @@ with col1:
 with col2:
     st.session_state.df_data= pd.DataFrame(st.session_state.df_data)
     list_try = [[i] for i in st.session_state.df_data['filename']]
-    st.session_state.df_data['file name'] = selSmpType(list_try)
-    # st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
+    
+    st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
 
     s = []
     for i in st.session_state.df_data['file name']:
