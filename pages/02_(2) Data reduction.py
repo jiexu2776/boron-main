@@ -256,7 +256,7 @@ with col1:
 
 
 with col2:
-    st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data[1])
+    st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'].values.tolist())
     # print(st.session_state.df_data['file name'])
 
 
