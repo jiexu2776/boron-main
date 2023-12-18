@@ -70,3 +70,5 @@ st.subheader(':green[(2) Data reduction:] choose standard for intra-sequence ins
 
 
 st.subheader(':blue[(3)Data virualization and download:] check results and download files')
+
+st.subheader(':violet[(4)Documention:] Github code and detailed explainations')
