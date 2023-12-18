@@ -90,15 +90,34 @@ def outlierCorrection(data, factorSD):
     return res, outlier
 
 
+# def selSmpType(dataFiles):
+#     re_patter = r"(\d{3}\_[a-zA-Z])"
+
+
+#     l = []
+#     for file in dataFiles:
+#         # print(file)
+#         match = re.search(re_patter,file)[0]
+#         print(match)
+#         l.append(match)
+#         #if "/" 
+#         #'data/data to test/1. data folder20221129-214242/file.....'
+#         #l.append(float(file.split("/")[-1].split('_')[0]))
+#     return l
+
+
 def selSmpType(dataFiles):
-    re_patter = r"(\d{3}\_[a-zA-Z])"
+    # re_patter = r"(\d{3}\_[a-zA-Z])"
 
 
     l = []
     for file in dataFiles:
         # print(file)
-        match = re.search(re_patter,file)[0]
-        print(match)
+
+
+        match = (file.split('.ex')[0])
+        # match = re.search(re_patter,file)[0]
+        # print(match)
         l.append(match)
         #if "/" 
         #'data/data to test/1. data folder20221129-214242/file.....'
@@ -254,7 +273,7 @@ with col1:
 
 with col2:
     st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
-    print(st.session_state.df_data['file name'])
+    # print(st.session_state.df_data['file name'])
 
 
     s = []
