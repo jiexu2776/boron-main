@@ -112,7 +112,7 @@ def selSmpType(dataFiles):
     l = []
     for file in dataFiles:
         # print(file)
-        match = file[:-5]
+        match = file[:-4]
         print(match)
         l.append(match)
         #if "/" 
