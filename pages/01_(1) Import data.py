@@ -169,3 +169,7 @@ else:
 if 'uploaded_laser_file' in st.session_state and len(st.session_state.uploaded_laser_file) != 0:
     st.write('your laser file has been uploaded')
 
+else:
+
+    st.write('not been uploaded')
+
