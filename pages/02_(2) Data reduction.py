@@ -270,7 +270,13 @@ with col1:
 
 
 with col2:
-    st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
+    l = []
+    for file in st.session_state.df_data['filename']:
+        match1= file[:-4]
+        l.append(match1)
+
+    st.session_state.df_data['file name'] = l
+    # selSmpType(st.session_state.df_data['filename'])
     # print(st.session_state.df_data['file name'])
 
 
