@@ -248,7 +248,8 @@ with col1:
 
 
     st.session_state.default_reg_level = 4
-    st.session_state.regress_level = st.number_input('regression level (4 is recommended)', step=1, value=st.session_state.default_reg_level, format='%X'
+    st.session_state.regress_level = 4
+    #st.number_input('regression level (4 is recommended)', step=1, value=st.session_state.default_reg_level, format='%X'
                                                         )
 
 # Choose A/B/C/D/U to get the regression for drift correction
