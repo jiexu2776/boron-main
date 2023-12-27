@@ -201,6 +201,8 @@ outlier_factor = st.number_input('outlier factor', value=1.5)
 if "average_B" in st.session_state:
     #A  = st.info("Reloading already parsed dataframe!")
     st.session_state.df_data = st.session_state.average_B
+    st.session_state.fig1=st.session_state.fig1
+
 else:
     st.session_state.df_data = bacground_sub(outlier_factor)
     # st.write(bacground_sub(outlier_factor))
