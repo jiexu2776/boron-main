@@ -256,8 +256,8 @@ with col1:
 
 
 with col2:
-    st.session_state.df_data= pd.DataFrame(st.session_state.df_data)
-    # st.write(st.session_state.df_data)
+    # st.session_state.df_data= pd.DataFrame(st.session_state.df_data)
+    st.write(st.session_state.df_data)
     list_try = [[i] for i in st.session_state.df_data['filename']]
     
     st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
@@ -321,7 +321,7 @@ if st.session_state.uploaded_laser_file is not None:
         st.subheader('2.1 B concerntration correction')
 
         #st.session_state.default_reg_level_B = 4
-        st.session_state.regress_level_B = st.number_input('insert your regression level for [B] (4 is recommended)', 
+        st.session_state.regress_level_B = st.number_input('insert your regression level for [B] (3 is recommended)', 
         step=1, 
         value=st.session_state.default_reg_level, 
         format='%X'
