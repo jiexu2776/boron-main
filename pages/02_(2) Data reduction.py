@@ -166,8 +166,8 @@ def regression(x, y, ref_stand, order, listname):
     #order = st.session_state.regress
     fig2, ax = plt.subplots()
     ax.plot(x, y, label='measuered', marker='o', linestyle='none')
-    # x_use = np.array(x)
-    popt, pcov = curve_fit(polynomFit, xdata=x,
+    x_use = np.array(x)
+    popt, pcov = curve_fit(polynomFit, xdata=x_use,
                            ydata=y, 
                            p0=[0]*(int(order)+1)
                            )
@@ -257,7 +257,7 @@ with col1:
 
 with col2:
     st.session_state.df_data= pd.DataFrame(st.session_state.df_data)
-    st.write(st.session_state.df_data)
+    # st.write(st.session_state.df_data)
     list_try = [[i] for i in st.session_state.df_data['filename']]
     
     st.session_state.df_data['file name'] = selSmpType(st.session_state.df_data['filename'])
