@@ -166,8 +166,8 @@ def regression(x, y, ref_stand, order, listname):
     #order = st.session_state.regress
     fig2, ax = plt.subplots()
     ax.plot(x, y, label='measuered', marker='o', linestyle='none')
-    x_use = np.array(x)
-    popt, pcov = curve_fit(polynomFit, xdata=x_use,
+    # x_use = np.array(x)
+    popt, pcov = curve_fit(polynomFit, xdata=x,
                            ydata=y, 
                            p0=[0]*(int(order)+1)
                            )
