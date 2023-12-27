@@ -203,7 +203,6 @@ if "average_B" in st.session_state:
     st.session_state.df_data = st.session_state.average_B
 else:
     st.session_state.df_data = bacground_sub(outlier_factor)
-    st.session_state.fig1 = fig1
     # st.write(bacground_sub(outlier_factor))
 
 st.subheader('Drift correction')
