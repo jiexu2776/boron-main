@@ -256,7 +256,7 @@ with col1:
 
 
 with col2:
-    st.session_state.df_data= pd.DataFrame(st.session_state.df_data, dtype=np.int8)
+    st.session_state.df_data= pd.DataFrame(st.session_state.df_data)
     st.write(st.session_state.df_data)
     list_try = [[i] for i in st.session_state.df_data['filename']]
     
