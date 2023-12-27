@@ -203,7 +203,7 @@ if "average_B" in st.session_state:
     st.session_state.df_data = st.session_state.average_B
 else:
     st.session_state.df_data = bacground_sub(outlier_factor)
-    st.write(bacground_sub(outlier_factor))
+    # st.write(bacground_sub(outlier_factor))
 
 st.subheader('Drift correction')
 st.write('Please choose your standard for boron isotopes correction')
