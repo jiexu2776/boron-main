@@ -124,7 +124,12 @@ def bacground_sub(factorSD):
     #         #substract background, substract bulc for 10B and 11B
         df_bacground_sub = df_signal - df_bacground_mean
 
-        df_bacground_sub['10B_bulc_sub'] = df_bacground_sub['10B'] - (df_bacground_sub['9.9']+df_bacground_sub['10.2'])/2
+      #  df_bacground_sub['10B_bulc_sub'] = df_bacground_sub['10B'] - (df_bacground_sub['9.9']+df_bacground_sub['10.2'])/2
+
+        df_bacground_sub['10B_bulc_sub'] = df_bacground_sub['10B'] - (0.07/0.19)*(df_bacground_sub['9.9']-(df_bacground_sub['9.9']-df_bacground_sub['10.2']))
+
+
+
         df_bacground_sub['11B_bulc_sub'] = df_bacground_sub['11B'] - (df_bacground_sub['10.627']+df_bacground_sub['10.9'])/2
         df_bacground_sub['11B/10B'] = df_bacground_sub['11B_bulc_sub'] / df_bacground_sub['10B_bulc_sub']
         
