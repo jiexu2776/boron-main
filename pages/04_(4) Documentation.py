@@ -41,13 +41,6 @@ st.markdown(
             width: 100%;
         }
 
-        [data-testid=stSidebar] [data-testid=stImage]{
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
 
     </style>
     """, unsafe_allow_html=True
@@ -57,8 +50,8 @@ st.sidebar.image(
     'https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/Goethe-Logo.gif')
 
 
-
-
+st.sidebar.image(
+    '[![DOI](https://zenodo.org/badge/722942640.svg)](https://zenodo.org/doi/10.5281/zenodo.11150471)')
 
 
 
