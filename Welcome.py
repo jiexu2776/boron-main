@@ -27,7 +27,7 @@ def add_logo():
                 background-image: url('https://zenodo.org/badge/722942640.svg');
                 background-repeat: no-repeat;
                 margin-left: 0px;
-                margin-top: 10px;
+                margin-top: 30px;
                 font-size: 25px;
                 position: relative;
                 top: 100px;
