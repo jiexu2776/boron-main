@@ -50,9 +50,6 @@ st.sidebar.image(
     'https://raw.githubusercontent.com/jiexu2776/boron-main/main/images/Goethe-Logo.gif')
 
 
-st.sidebar.image(
-    '[![DOI](https://zenodo.org/badge/722942640.svg)](https://zenodo.org/doi/10.5281/zenodo.11150471)')
-
 
 
 st.header('Documentation of the Boron isotope reduction program')
