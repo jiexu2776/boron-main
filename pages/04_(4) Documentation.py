@@ -55,6 +55,10 @@ st.sidebar.image(
 
 st.header('Documentation of the Boron isotope reduction program')
 
+st.write('The code is published in Zenodo:')
+link = '[![DOI](https://zenodo.org/badge/722942640.svg)](https://zenodo.org/doi/10.5281/zenodo.11150471)'
+st.markdown(link, unsafe_allow_html=True)
+
 st.write('The full documentation is realised using Quarto:')
 link = '[Quarto Documentation](https://jie-xu.quarto.pub/boron-la-icp-ms-data-reduction-program/)'
 st.markdown(link, unsafe_allow_html=True)
@@ -62,3 +66,4 @@ st.markdown(link, unsafe_allow_html=True)
 st.write('The full code is available on GitHub:')
 link = '[GitHub Code Repository](https://github.com/jiexu2776/boron-main)'
 st.markdown(link, unsafe_allow_html=True)
+
