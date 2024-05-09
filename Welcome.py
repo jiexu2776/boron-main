@@ -22,6 +22,17 @@ def add_logo():
                 padding-top: 120px;
                 background-position: 100px 20px;
             }
+
+            [data-testid="stSidebarNav"] {
+                background-image: url('https://zenodo.org/badge/722942640.svg');
+                background-repeat: no-repeat;
+                margin-left: 100px;
+                margin-top: 10px;
+                font-size: 25px;
+                position: relative;
+                top: 100px;
+            }
+
             [data-testid="stSidebarNav"]::before {
                 content: "Main";
                 margin-left: 100px;
