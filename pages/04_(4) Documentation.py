@@ -40,6 +40,15 @@ st.markdown(
             margin-right: auto;
             width: 100%;
         }
+
+        [data-testid=stSidebar] [data-testid=stImage]{
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
     </style>
     """, unsafe_allow_html=True
 )
