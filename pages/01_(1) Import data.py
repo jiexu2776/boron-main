@@ -143,7 +143,8 @@ if uploaded_files:
 st.subheader("2. Upload Laser Log File")
 if st.button("Test Laser Data"):
     st.session_state.uploaded_laser_file = LASER_FILE_PATH
+    st.write("You have uploaded test dataset")
 else:
     st.session_state.uploaded_laser_file = st.file_uploader(
-        "Upload Laser File", type="csv"
-    )
+        "Upload Laser File", type="csv")
+    st.write("You have uploaded you own data")
