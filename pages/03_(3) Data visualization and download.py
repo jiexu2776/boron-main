@@ -59,21 +59,22 @@ st.sidebar.image(
 
 st.header('Split stream data')
 
-    if "df_map1" in st.session_state:
-        # st.divider()
-        st.header('Results')
-        st.write('Export results or append your trace elements')
+
+if "df_map1" in st.session_state:
+    # st.divider()
+    st.header('Results')
+    st.write('Export results or append your trace elements')
+
+    trace_file = st.radio(
+        'Select',
+        ('No Split Stream', 'Split Stream'), horizontal=True)
+
+    if trace_file == 'No Split Stream':
+        st.session_state.df_all = st.session_state.df_map1
     
-        trace_file = st.radio(
-            'Select',
-            ('No Split Stream', 'Split Stream'), horizontal=True)
-    
-        if trace_file == 'No Split Stream':
-            st.session_state.df_all = st.session_state.df_map1
-        
-            st.session_state.option = st.selectbox(
-                'Which srandard data would you like to display?',
-                ('A', 'B', 'C', 'D'))
+        st.session_state.option = st.selectbox(
+            'Which srandard data would you like to display?',
+            ('A', 'B', 'C', 'D'))
 
         fig, ax = plt.subplots(1, 1, figsize=(9, 6))
         # ax.plot([0,1],[0,1], transform=ax.transAxes, c = 'red')
