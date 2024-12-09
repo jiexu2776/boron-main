@@ -105,6 +105,8 @@ def plot_signal_selection():
         alpha=0.5
     )
     ax.legend()
+    plt.tight_layout()
+
     return fig
 
 # Main Application
