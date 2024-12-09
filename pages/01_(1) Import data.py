@@ -118,6 +118,7 @@ if st.button("Load Test Data"):
         for file in st.session_state.tectSettingsFolder
         if file.endswith(".exp")
     ]
+    st.write("You have uploaded test dataset")
 
 if st.button("Clear Uploaded Data"):
     st.session_state.uploaded_files = []
