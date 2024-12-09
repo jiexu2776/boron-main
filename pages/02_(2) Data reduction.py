@@ -112,80 +112,43 @@ def selSmpType(dataFiles):
 
 
 def bacground_sub(factorSD):
+    # Check if 'uploaded_files' exists in session state
+    if 'uploaded_files' not in st.session_state:
+        st.error("No files uploaded. Please upload files first.")
+        return None
+
     average_B = []
     for i in st.session_state.uploaded_files:
-
         df_data, filename = parseBoronTable(i)
         df_data = df_data[['Cycle', '9.9','10B', '10.2',  '10.627', '10.9' ,'11B']].astype(float)
-
 
         df_bacground_mean = df_data[st.session_state.bac_str:st.session_state.bac_end].mean()
         df_signal = df_data[st.session_state.sig_str:st.session_state.sig_end]
 
-    #         #substract background, substract bulc for 10B and 11B
+        # Subtract background and correct
         df_bacground_sub = df_signal - df_bacground_mean
 
-      #  df_bacground_sub['10B_bulc_sub'] = df_bacground_sub['10B'] - (df_bacground_sub['9.9']+df_bacground_sub['10.2'])/2
-        # Background subtraction
         df_bacground_sub['10B_bulc_sub'] = df_bacground_sub['10B'] - (0.07/0.19)*(df_bacground_sub['9.9']-(df_bacground_sub['9.9']-df_bacground_sub['10.2']))
-
-
-
         df_bacground_sub['11B_bulc_sub'] = df_bacground_sub['11B'] - (df_bacground_sub['10.627']+df_bacground_sub['10.9'])/2
         df_bacground_sub['11B/10B'] = df_bacground_sub['11B_bulc_sub'] / df_bacground_sub['10B_bulc_sub']
-        
-        # Outlier correction
 
         res_iso, res_iso_outlier = outlierCorrection(df_bacground_sub['11B/10B'], factorSD)
         res_11B, res_11B_outlier = outlierCorrection(df_bacground_sub['11B'], factorSD)
 
         if i == st.session_state.sample_plot:
-            fig1 = go.Figure()
-            fig1.add_trace(go.Scatter(x=np.arange(len(df_bacground_sub['11B/10B'])), 
-                                     y=df_bacground_sub['11B/10B'], 
-                                     mode='markers', 
-                                     name='Corrected 11B/10B', 
-                                     marker=dict(color='black')))
+            fig1, ax = plt.subplots(figsize=(5, 3))
+            ax.plot(df_bacground_sub['11B/10B'], 'ko')
+            ax.plot(res_iso_outlier, 'ro', label='outliers')
+            ax.set_ylabel('$^{11}B$/$^{10}B$')
+            ax.legend()
+            ax.axhline(y=res_iso.mean(), color="black", linestyle="--")
+            st.pyplot(fig1)
 
-            fig1.add_trace(go.Scatter(x=np.arange(len(res_iso_outlier)), 
-                                     y=res_iso_outlier, 
-                                     mode='markers', 
-                                     name='Outliers', 
-                                     marker=dict(color='red', size=10)))
-    
-            fig1.add_trace(go.Scatter(x=[0, len(df_bacground_sub['11B/10B'])],
-                                     y=[res_iso.mean(), res_iso.mean()],
-                                     mode='lines',
-                                     name='Mean Line',
-                                     line=dict(color='black', dash='dash')))    
-    
-            fig1.update_layout(
-                title="Outlier Detection for 11B/10B Ratio",
-                xaxis_title="Cycle",
-                yaxis_title="$^{11}B$/$^{10}B$",
-                showlegend=True
-            )
+        average_B.append({'filename': filename, '11B': np.mean(res_11B), '11B/10B_row': np.mean(res_iso), 'se': np.std(res_iso)/np.sqrt(len(res_iso))})
 
-            st.plotly_chart(fig1)
-            average_B.append({'filename': filename, '11B': np.mean(res_iso), '11B/10B_row': np.mean(res_iso), 'se': np.std(res_iso)/np.sqrt(len(res_iso))})
-
-            df = pd.DataFrame(average_B)
-            st.session_state.average_B = df
-            return df    
-    #         # fig1, ax = plt.subplots(figsize = (5, 3))
-    #         ax.plot(df_bacground_sub['11B/10B'], 'ko')
-    #         ax.plot(res_iso_outlier, 'ro', label='outliers')
-    #         ax.set_ylabel('$^{11}B$/$^{1O}B$')
-    #         ax.legend()
-    #         ax.axhline(y=res_iso.mean(), color="black", linestyle="--")
-
-    #         st.pyplot(fig1)
-    #     #   
-    #     average_B.append({'filename': filename, '11B': np.mean(res_11B), '11B/10B_row': np.mean(res_iso), 'se': np.std(res_iso)/np.sqrt(len(res_iso))})
-
-    # df = pd.DataFrame(average_B)
-    # st.session_state.average_B = df
-    # st.session_state.fig1=fig1
+    df = pd.DataFrame(average_B)
+    st.session_state.average_B = df
+    st.session_state.fig1 = fig1
 
     return df
 
