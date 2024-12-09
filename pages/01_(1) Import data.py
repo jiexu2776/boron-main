@@ -87,7 +87,7 @@ def plot_signal_selection():
     df_data, _ = parse_boron_table(st.session_state.sample_plot)
     df_data = df_data[['Cycle', '9.9', '10B', '10.2', '11B']].astype(float)
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(5, 3))
     ax.plot(df_data['11B'], label='11B', color='green')
     ax.plot(df_data['10B'], label='10B', color='firebrick')
     ax.set_ylabel('Signal Intensity')
