@@ -142,7 +142,7 @@ def bacground_sub(factorSD):
 
 
         if i == st.session_state.sample_plot:
-            fig1, ax = plt.subplots(figsize = (6, 4))
+            fig1, ax = plt.subplots(figsize = (5, 3))
             ax.plot(df_bacground_sub['11B/10B'], 'ko')
             ax.plot(res_iso_outlier, 'ro', label='outliers')
             ax.set_ylabel('$^{11}B$/$^{1O}B$')
