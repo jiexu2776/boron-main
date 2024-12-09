@@ -8,6 +8,7 @@ from scipy.optimize import curve_fit
 import os
 import re
 from io import StringIO
+import plotly.graph_objects as go
 
 
 def add_logo():
@@ -125,7 +126,7 @@ def bacground_sub(factorSD):
         df_bacground_sub = df_signal - df_bacground_mean
 
       #  df_bacground_sub['10B_bulc_sub'] = df_bacground_sub['10B'] - (df_bacground_sub['9.9']+df_bacground_sub['10.2'])/2
-
+        # Background subtraction
         df_bacground_sub['10B_bulc_sub'] = df_bacground_sub['10B'] - (0.07/0.19)*(df_bacground_sub['9.9']-(df_bacground_sub['9.9']-df_bacground_sub['10.2']))
 
 
@@ -133,29 +134,58 @@ def bacground_sub(factorSD):
         df_bacground_sub['11B_bulc_sub'] = df_bacground_sub['11B'] - (df_bacground_sub['10.627']+df_bacground_sub['10.9'])/2
         df_bacground_sub['11B/10B'] = df_bacground_sub['11B_bulc_sub'] / df_bacground_sub['10B_bulc_sub']
         
+        # Outlier correction
 
         res_iso, res_iso_outlier = outlierCorrection(df_bacground_sub['11B/10B'], factorSD)
-
-
-
         res_11B, res_11B_outlier = outlierCorrection(df_bacground_sub['11B'], factorSD)
 
-
         if i == st.session_state.sample_plot:
-            fig1, ax = plt.subplots(figsize = (5, 3))
-            ax.plot(df_bacground_sub['11B/10B'], 'ko')
-            ax.plot(res_iso_outlier, 'ro', label='outliers')
-            ax.set_ylabel('$^{11}B$/$^{1O}B$')
-            ax.legend()
-            ax.axhline(y=res_iso.mean(), color="black", linestyle="--")
+            fig1 = go.Figure()
+            fig1.add_trace(go.Scatter(x=np.arange(len(df_bacground_sub['11B/10B'])), 
+                                     y=df_bacground_sub['11B/10B'], 
+                                     mode='markers', 
+                                     name='Corrected 11B/10B', 
+                                     marker=dict(color='black')))
 
-            st.pyplot(fig1)
-        #   
-        average_B.append({'filename': filename, '11B': np.mean(res_11B), '11B/10B_row': np.mean(res_iso), 'se': np.std(res_iso)/np.sqrt(len(res_iso))})
+            fig1.add_trace(go.Scatter(x=np.arange(len(res_iso_outlier)), 
+                                     y=res_iso_outlier, 
+                                     mode='markers', 
+                                     name='Outliers', 
+                                     marker=dict(color='red', size=10)))
+    
+            fig1.add_trace(go.Scatter(x=[0, len(df_bacground_sub['11B/10B'])],
+                                     y=[res_iso.mean(), res_iso.mean()],
+                                     mode='lines',
+                                     name='Mean Line',
+                                     line=dict(color='black', dash='dash')))    
+    
+            fig1.update_layout(
+                title="Outlier Detection for 11B/10B Ratio",
+                xaxis_title="Cycle",
+                yaxis_title="$^{11}B$/$^{10}B$",
+                showlegend=True
+            )
 
-    df = pd.DataFrame(average_B)
-    st.session_state.average_B = df
-    st.session_state.fig1=fig1
+            st.plotly_chart(fig1)
+            average_B.append({'filename': filename, '11B': np.mean(res_iso), '11B/10B_row': np.mean(res_iso), 'se': np.std(res_iso)/np.sqrt(len(res_iso))})
+
+            df = pd.DataFrame(average_B)
+            st.session_state.average_B = df
+            return df    
+    #         # fig1, ax = plt.subplots(figsize = (5, 3))
+    #         ax.plot(df_bacground_sub['11B/10B'], 'ko')
+    #         ax.plot(res_iso_outlier, 'ro', label='outliers')
+    #         ax.set_ylabel('$^{11}B$/$^{1O}B$')
+    #         ax.legend()
+    #         ax.axhline(y=res_iso.mean(), color="black", linestyle="--")
+
+    #         st.pyplot(fig1)
+    #     #   
+    #     average_B.append({'filename': filename, '11B': np.mean(res_11B), '11B/10B_row': np.mean(res_iso), 'se': np.std(res_iso)/np.sqrt(len(res_iso))})
+
+    # df = pd.DataFrame(average_B)
+    # st.session_state.average_B = df
+    # st.session_state.fig1=fig1
 
     return df
 
