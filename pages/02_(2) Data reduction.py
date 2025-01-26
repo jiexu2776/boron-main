@@ -8,7 +8,7 @@ from scipy.optimize import curve_fit
 import os
 import re
 from io import StringIO
-import plotly.graph_objects as go
+#import plotly.graph_objects as go
 
 
 def add_logo():
